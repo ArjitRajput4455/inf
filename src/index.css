@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-50: #eef6ff;
+  --color-navy-100: #d9ebff;
+  --color-navy-500: #1f5fbf;
+  --color-navy-700: #133f7d;
+  --color-navy-800: #0d315f;
+  --color-navy-900: #071c35;
+  --color-navy-950: #041224;
+  --color-saffron-400: #f6a72d;
+  --color-saffron-500: #f08c18;
+  --color-saffron-600: #d96f08;
+  --color-indiaGreen-500: #15803d;
+  --color-indiaGreen-600: #116b33;
+  --font-sans: Inter, ui-sans-serif, system-ui, Segoe UI, Arial;
+  --shadow-soft: 0 20px 60px rgba(4, 18, 36, 0.12);
+  --shadow-card: 0 16px 40px rgba(4, 18, 36, 0.1);
+}
+
+:root {
+  color: #071c35;
+  background: #f8fafc;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 93.75%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 1)),
+    #f8fafc;
+}
+
+html.light-theme {
+  color-scheme: light;
+}
+
+html.dark-theme {
+  color-scheme: dark;
+}
+
+html.light-theme body {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 1)),
+    #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.inline-flex svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+.inline-flex {
+  color: var(--button-text-color, currentColor);
+}
+
+.container-page {
+  @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8;
+}
+
+.section-padding {
+  @apply py-12 sm:py-16 lg:py-20;
+}
+
+.field {
+  @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800 outline-none transition focus:border-saffron-500 focus:ring-4 focus:ring-saffron-500/10;
+}
+
+.label {
+  @apply mb-2 block text-sm font-semibold text-slate-700;
+}
+
+.subtle-grid {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.bg-patriotic-radial {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(240, 140, 24, 0.22), transparent 28%),
+    radial-gradient(circle at 74% 42%, rgba(255, 255, 255, 0.2), transparent 19%),
+    radial-gradient(circle at 84% 8%, rgba(21, 128, 61, 0.18), transparent 24%),
+    linear-gradient(135deg, #041224 0%, #0d315f 52%, #071c35 100%);
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(4, 18, 36, 0.94),
+    rgba(4, 18, 36, 0.72),
+    rgba(4, 18, 36, 0.9)
+  );
+}
+
+html.light-theme .bg-patriotic-radial {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(240, 140, 24, 0.18), transparent 28%),
+    radial-gradient(circle at 74% 42%, rgba(255, 255, 255, 0.22), transparent 19%),
+    radial-gradient(circle at 84% 8%, rgba(21, 128, 61, 0.13), transparent 24%),
+    linear-gradient(135deg, #f8fbff 0%, #dbeafe 45%, #eef6ff 100%);
+}
+
+html.light-theme .hero-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 255, 255, 0.24),
+    rgba(255, 255, 255, 0.06)
+  );
+}
+
+html.light-theme .bg-patriotic-radial h1,
+html.light-theme .bg-patriotic-radial h2,
+html.light-theme .bg-patriotic-radial h3,
+html.light-theme .bg-patriotic-radial p {
+  color: #041224;
+  text-shadow: none;
+}
+
+html.light-theme .bg-patriotic-radial .text-slate-100,
+html.light-theme .bg-patriotic-radial .text-slate-200,
+html.light-theme .bg-patriotic-radial .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.light-theme .bg-patriotic-radial .text-saffron-300 {
+  color: #d96f08 !important;
+}
+
+html.light-theme .theme-hero .backdrop-blur {
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html.light-theme .theme-hero a[href="/support"] {
+  --button-text-color: #041224 !important;
+  color: #041224 !important;
+  background-color: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+}
+
+html.light-theme .theme-hero a[href="/support"] svg {
+  color: #041224 !important;
+  stroke: #041224 !important;
+}
+
+html.light-theme .theme-hero [data-button-variant="outline"] {
+  --button-text-color: #041224 !important;
+  color: #041224 !important;
+  background-color: rgba(255, 255, 255, 0.82) !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light-theme .theme-hero [data-button-variant="outline"] svg,
+html.light-theme .theme-hero [data-button-variant="outline"] * {
+  color: #041224 !important;
+  stroke: #041224 !important;
+}
+
+.hero-right-logo {
+  filter:
+    drop-shadow(0 0 28px rgba(255, 255, 255, 0.5))
+    drop-shadow(0 24px 46px rgba(4, 18, 36, 0.38));
+}
