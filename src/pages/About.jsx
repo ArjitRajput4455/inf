@@ -7,6 +7,7 @@ import { coreObjectives, mission, party, vision } from "../constants/content.js"
 export default function About() {
   return (
     <>
+
       <section className="bg-patriotic-radial py-20 text-white">
         <div className="container-page">
           <div className="max-w-4xl">
