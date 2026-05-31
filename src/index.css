@@ -72,10 +72,6 @@ textarea {
   stroke: currentColor;
 }
 
-.inline-flex {
-  color: var(--button-text-color, currentColor);
-}
-
 .container-page {
   @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8;
 }
@@ -116,63 +112,90 @@ textarea {
   );
 }
 
+.hero-right-logo {
+  filter:
+    drop-shadow(0 0 28px rgba(255, 255, 255, 0.5))
+    drop-shadow(0 24px 46px rgba(4, 18, 36, 0.38));
+}
+
+/* —— Light mode (default) —— */
+
 html.light-theme .bg-patriotic-radial {
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(240, 140, 24, 0.18), transparent 28%),
-    radial-gradient(circle at 74% 42%, rgba(255, 255, 255, 0.22), transparent 19%),
-    radial-gradient(circle at 84% 8%, rgba(21, 128, 61, 0.13), transparent 24%),
-    linear-gradient(135deg, #f8fbff 0%, #dbeafe 45%, #eef6ff 100%);
+    radial-gradient(circle at 18% 22%, rgba(240, 140, 24, 0.16), transparent 30%),
+    radial-gradient(circle at 78% 38%, rgba(147, 197, 253, 0.35), transparent 28%),
+    radial-gradient(circle at 88% 10%, rgba(21, 128, 61, 0.1), transparent 24%),
+    linear-gradient(135deg, #f8fbff 0%, #e8f2ff 48%, #f1f5f9 100%);
 }
 
 html.light-theme .hero-overlay {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.62),
-    rgba(255, 255, 255, 0.24),
-    rgba(255, 255, 255, 0.06)
+    rgba(255, 255, 255, 0.72),
+    rgba(255, 255, 255, 0.2),
+    rgba(241, 245, 249, 0.5)
   );
 }
 
-html.light-theme .bg-patriotic-radial h1,
-html.light-theme .bg-patriotic-radial h2,
-html.light-theme .bg-patriotic-radial h3,
-html.light-theme .bg-patriotic-radial p {
+html.light-theme .hero-right-logo {
+  filter:
+    drop-shadow(0 0 18px rgba(255, 255, 255, 0.4))
+    drop-shadow(0 18px 36px rgba(4, 18, 36, 0.1));
+}
+
+html.light-theme .theme-hero {
   color: #041224;
-  text-shadow: none;
 }
 
-html.light-theme .bg-patriotic-radial .text-slate-100,
-html.light-theme .bg-patriotic-radial .text-slate-200,
-html.light-theme .bg-patriotic-radial .text-slate-300 {
-  color: #334155 !important;
+html.light-theme .theme-hero h1 {
+  color: #041224 !important;
 }
 
-html.light-theme .bg-patriotic-radial .text-saffron-300 {
+html.light-theme .theme-hero .hero-website-badge {
+  border-color: rgba(240, 140, 24, 0.35) !important;
+  background-color: rgba(255, 247, 237, 0.95) !important;
   color: #d96f08 !important;
 }
 
-html.light-theme .theme-hero .backdrop-blur {
-  background-color: rgba(255, 255, 255, 0.72) !important;
-  border-color: rgba(15, 23, 42, 0.1) !important;
+html.light-theme .theme-hero .hero-quote-hindi {
+  color: #d96f08 !important;
 }
 
-html.light-theme .theme-hero a[href="/support"] {
-  --button-text-color: #041224 !important;
+html.light-theme .theme-hero .hero-quote-english {
+  color: #334155 !important;
+}
+
+html.light-theme .theme-hero .hero-slogan-card {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 16px 40px rgba(4, 18, 36, 0.08);
+}
+
+html.light-theme .theme-hero .hero-slogan-label {
+  color: #64748b !important;
+}
+
+html.light-theme .theme-hero .hero-slogan-text {
   color: #041224 !important;
-  background-color: rgba(255, 255, 255, 0.78) !important;
-  border-color: rgba(15, 23, 42, 0.14) !important;
 }
 
-html.light-theme .theme-hero a[href="/support"] svg {
+html.light-theme .theme-hero [data-button-variant="secondary"] {
+  background-color: #ffffff !important;
+  color: #041224 !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 12px 30px rgba(4, 18, 36, 0.08) !important;
+}
+
+html.light-theme .theme-hero [data-button-variant="secondary"] svg {
   color: #041224 !important;
   stroke: #041224 !important;
 }
 
 html.light-theme .theme-hero [data-button-variant="outline"] {
-  --button-text-color: #041224 !important;
   color: #041224 !important;
-  background-color: rgba(255, 255, 255, 0.82) !important;
-  border-color: rgba(15, 23, 42, 0.16) !important;
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  box-shadow: 0 12px 30px rgba(4, 18, 36, 0.06) !important;
 }
 
 html.light-theme .theme-hero [data-button-variant="outline"] svg,
@@ -181,8 +204,16 @@ html.light-theme .theme-hero [data-button-variant="outline"] * {
   stroke: #041224 !important;
 }
 
-.hero-right-logo {
-  filter:
-    drop-shadow(0 0 28px rgba(255, 255, 255, 0.5))
-    drop-shadow(0 24px 46px rgba(4, 18, 36, 0.38));
+/* Inner page banners in light mode */
+html.light-theme section.bg-patriotic-radial.text-white {
+  color: #041224;
+}
+
+html.light-theme section.bg-patriotic-radial.text-white h1,
+html.light-theme section.bg-patriotic-radial.text-white p {
+  color: #041224;
+}
+
+html.light-theme section.bg-patriotic-radial.text-white .text-saffron-300 {
+  color: #d96f08 !important;
 }

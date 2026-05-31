@@ -1,9 +1,11 @@
 import InitiativeCard from "../components/InitiativeCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import CTAButton from "../components/CTAButton.jsx";
-import { initiatives } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 export default function Initiatives() {
+  const { initiatives } = useContent();
+
   return (
     <>
       <section className="bg-patriotic-radial py-20 text-white">

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import CTAButton from "./CTAButton.jsx";
 
-export default function MobileMenu({ links, onClose, theme = "dark" }) {
+export default function MobileMenu({ links, onClose, theme = "light" }) {
   const isLight = theme === "light";
 
   return (
@@ -28,13 +28,7 @@ export default function MobileMenu({ links, onClose, theme = "dark" }) {
               }`
             }
             style={({ isActive }) => ({
-              color: isActive
-                ? isLight
-                  ? "#ffffff"
-                  : "#041224"
-                : isLight
-                  ? "#334155"
-                  : "#f8fafc",
+              color: isActive ? "#ffffff" : isLight ? "#334155" : "#f8fafc",
             })}
           >
             {link.label}

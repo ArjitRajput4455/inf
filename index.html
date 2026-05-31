@@ -8,6 +8,14 @@
       content="Official website of Indian National Federation Party, India - INF INDIA."
     />
     <title>INF INDIA | Indian National Federation Party, India</title>
+    <script>
+      (function () {
+        var theme = localStorage.getItem("inf-theme") || "light";
+        document.documentElement.classList.add(
+          theme === "light" ? "light-theme" : "dark-theme",
+        );
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -2,9 +2,11 @@ import { Eye, Flag, Target } from "lucide-react";
 import MissionVisionCard from "../components/MissionVisionCard.jsx";
 import ObjectiveCard from "../components/ObjectiveCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
-import { coreObjectives, mission, party, vision } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 export default function About() {
+  const { coreObjectives, mission, party, vision } = useContent();
+
   return (
     <>
 

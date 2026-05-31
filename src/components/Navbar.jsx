@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, Moon, Sun, X } from "lucide-react";
-import { party } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 import CTAButton from "./CTAButton.jsx";
 import MobileMenu from "./MobileMenu.jsx";
 import infLogo from "../customs/inflogo.jpeg";
@@ -21,9 +21,10 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "dark";
-    return localStorage.getItem("inf-theme") || "dark";
+    if (typeof window === "undefined") return "light";
+    return localStorage.getItem("inf-theme") || "light";
   });
+  const { party } = useContent();
 
   const isLight = theme === "light";
 
@@ -32,6 +33,8 @@ export default function Navbar() {
     document.documentElement.classList.toggle("dark-theme", !isLight);
     localStorage.setItem("inf-theme", theme);
   }, [isLight, theme]);
+
+  const toggleTheme = () => setTheme((current) => (current === "light" ? "dark" : "light"));
 
   return (
     <header
@@ -87,9 +90,7 @@ export default function Navbar() {
                 }
                 style={({ isActive }) => ({
                   color: isActive
-                    ? isLight
-                      ? "#ffffff"
-                      : "#041224"
+                    ? "#ffffff"
                     : isLight
                       ? "#334155"
                       : "#f8fafc",
@@ -103,7 +104,7 @@ export default function Navbar() {
           <div className="hidden items-center gap-3 xl:flex">
             <button
               type="button"
-              onClick={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
+              onClick={toggleTheme}
               className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition ${
                 isLight
                   ? "border-slate-200 bg-slate-100 text-navy-950 hover:bg-slate-200"
@@ -121,31 +122,32 @@ export default function Navbar() {
             </CTAButton>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition xl:hidden ${
-              isLight
-                ? "border-slate-200 bg-slate-100 text-navy-950 hover:bg-slate-200"
-                : "border-white/15 bg-white/10 text-white hover:bg-white/20"
-            }`}
-            aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
-          >
-            {isLight ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
-
-          <button
-            type="button"
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition lg:hidden ${
-              isLight
-                ? "border-slate-200 text-navy-950 hover:bg-slate-100"
-                : "border-white/15 text-white hover:bg-white/10"
-            }`}
-            aria-label="Toggle navigation menu"
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition ${
+                isLight
+                  ? "border-slate-200 bg-slate-100 text-navy-950 hover:bg-slate-200"
+                  : "border-white/15 bg-white/10 text-white hover:bg-white/20"
+              }`}
+              aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
+            >
+              {isLight ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+            <button
+              type="button"
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition ${
+                isLight
+                  ? "border-slate-200 text-navy-950 hover:bg-slate-100"
+                  : "border-white/15 text-white hover:bg-white/10"
+              }`}
+              aria-label="Toggle navigation menu"
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </div>
       {open && <MobileMenu links={links} onClose={() => setOpen(false)} theme={theme} />}

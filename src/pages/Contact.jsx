@@ -1,10 +1,12 @@
 import { Globe2, Mail, MapPin, MessageCircle, Phone, Video } from "lucide-react";
 import ContactForm from "../components/ContactForm.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
+import { useContent } from "../context/ContentContext.jsx";
 
 export default function Contact() {
-  return (
-    <>
+  const { contact } = useContent();
+
+  return (    <>
       <section className="bg-patriotic-radial py-20 text-white">
         <div className="container-page">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-saffron-300">
@@ -34,15 +36,15 @@ export default function Contact() {
               <div className="mt-6 space-y-4 text-slate-200">
                 <p className="flex gap-3">
                   <MapPin className="mt-0.5 shrink-0 text-saffron-400" size={20} />
-                  Office address placeholder, India
+                  {contact.address}
                 </p>
                 <p className="flex gap-3">
                   <Mail className="mt-0.5 shrink-0 text-saffron-400" size={20} />
-                  info@infiindia.org
+                  {contact.email}
                 </p>
                 <p className="flex gap-3">
                   <Phone className="mt-0.5 shrink-0 text-saffron-400" size={20} />
-                  +91-00000-00000
+                  {contact.phone}
                 </p>
               </div>
               <div className="mt-6 flex gap-3">

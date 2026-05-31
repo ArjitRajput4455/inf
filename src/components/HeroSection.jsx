@@ -1,9 +1,11 @@
 import { BadgeIndianRupee, HeartHandshake, UserPlus } from "lucide-react";
-import { party } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 import CTAButton from "./CTAButton.jsx";
 import infHeroLogo from "../customs/inflogo-removebg-preview.png";
 
 export default function HeroSection() {
+  const { party } = useContent();
+
   return (
     <section className="theme-hero relative isolate overflow-hidden bg-patriotic-radial text-white">
       <div className="hero-overlay absolute inset-0 -z-10" />
@@ -12,26 +14,26 @@ export default function HeroSection() {
 
       <div className="container-page grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:py-12 xl:gap-12">
         <div>
-          <div className="mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-bold text-saffron-300 backdrop-blur">
+          <div className="hero-website-badge mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-bold text-saffron-300 backdrop-blur">
             Official website: {party.website}
           </div>
           <h1 className="max-w-4xl text-3xl font-black uppercase leading-tight tracking-tight sm:text-4xl lg:text-5xl">
             {party.name}
           </h1>
           <div className="mt-5 max-w-3xl border-l-4 border-saffron-500 pl-5">
-            <p className="text-xl font-black text-saffron-300 sm:text-2xl">
+            <p className="hero-quote-hindi text-xl font-black text-saffron-300 sm:text-2xl">
               “{party.sloganHindi}”
             </p>
-            <p className="mt-2 text-base font-semibold text-slate-100 sm:text-lg">
+            <p className="hero-quote-english mt-2 text-base font-semibold text-slate-100 sm:text-lg">
               “{party.sloganEnglish}”
             </p>
           </div>
-          <div className="mt-5 inline-flex rounded-3xl border border-white/15 bg-white/10 px-5 py-3 shadow-2xl backdrop-blur">
+          <div className="hero-slogan-card mt-5 inline-flex rounded-3xl border border-white/15 bg-white/10 px-5 py-3 shadow-2xl backdrop-blur">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-300">
+              <p className="hero-slogan-label text-xs font-black uppercase tracking-[0.2em] text-slate-300">
                 Punjab Election 2027 Slogan
               </p>
-              <p className="mt-1 text-xl font-black text-white">
+              <p className="hero-slogan-text mt-1 text-xl font-black text-white">
                 “{party.punjabSlogan}”
               </p>
             </div>

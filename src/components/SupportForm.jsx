@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { UploadCloud } from "lucide-react";
-import { supportCategories } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 import { submitSupport } from "../services/api.js";
 import CTAButton from "./CTAButton.jsx";
 
@@ -16,6 +16,7 @@ const initialState = {
 };
 
 export default function SupportForm() {
+  const { supportCategories } = useContent();
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);

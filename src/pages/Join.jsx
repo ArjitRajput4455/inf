@@ -1,9 +1,11 @@
 import { UsersRound } from "lucide-react";
 import JoinForm from "../components/JoinForm.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
-import { joinTeams } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 export default function Join() {
+  const { joinTeams } = useContent();
+
   return (
     <>
       <section className="bg-patriotic-radial py-20 text-white">

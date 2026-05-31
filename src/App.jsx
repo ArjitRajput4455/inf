@@ -10,8 +10,12 @@ import Support from "./pages/Support.jsx";
 import Donate from "./pages/Donate.jsx";
 import News from "./pages/News.jsx";
 import Contact from "./pages/Contact.jsx";
+import AdminLogin from "./admin/AdminLogin.jsx";
+import AdminLayout from "./admin/AdminLayout.jsx";
+import AdminDashboard from "./admin/AdminDashboard.jsx";
+import ProtectedRoute from "./admin/ProtectedRoute.jsx";
 
-export default function App() {
+function PublicSite() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <Navbar />
@@ -30,5 +34,24 @@ export default function App() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<AdminDashboard />} />
+      </Route>
+      <Route path="/*" element={<PublicSite />} />
+    </Routes>
   );
 }

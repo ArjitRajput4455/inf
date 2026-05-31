@@ -11,7 +11,7 @@ import InitiativeCard from "../components/InitiativeCard.jsx";
 import MissionVisionCard from "../components/MissionVisionCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import CTAButton from "../components/CTAButton.jsx";
-import { initiatives, mission, vision, workActions } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 const highlights = [
   ["Farmers Support", Sprout],
@@ -23,6 +23,8 @@ const highlights = [
 ];
 
 export default function Home() {
+  const { initiatives, mission, vision, workActions } = useContent();
+
   return (
     <>
       <HeroSection />

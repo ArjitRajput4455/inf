@@ -1,9 +1,11 @@
 import { HeartHandshake } from "lucide-react";
 import SectionHeading from "../components/SectionHeading.jsx";
 import SupportForm from "../components/SupportForm.jsx";
-import { supportCategories } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 export default function Support() {
+  const { supportCategories } = useContent();
+
   return (
     <>
       <section className="bg-patriotic-radial py-20 text-white">

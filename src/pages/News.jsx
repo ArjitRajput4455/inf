@@ -1,6 +1,6 @@
 import NewsCard from "../components/NewsCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
-import { newsItems, party } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 const sections = [
   "Latest announcements",
@@ -10,6 +10,8 @@ const sections = [
 ];
 
 export default function News() {
+  const { newsItems, party } = useContent();
+
   return (
     <>
       <section className="bg-patriotic-radial py-20 text-white">

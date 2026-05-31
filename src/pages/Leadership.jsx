@@ -1,8 +1,10 @@
 import SectionHeading from "../components/SectionHeading.jsx";
 import TeamMemberCard from "../components/TeamMemberCard.jsx";
-import { joinTeams, officeBearers, spokespersons } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 export default function Leadership() {
+  const { joinTeams, officeBearers, spokespersons } = useContent();
+
   return (
     <>
       <section className="bg-patriotic-radial py-20 text-white">

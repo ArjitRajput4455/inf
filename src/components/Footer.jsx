@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Globe2, Mail, MapPin, MessageCircle, Phone, Video } from "lucide-react";
-import { party } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 
 const quickLinks = [
   ["About", "/about"],
@@ -17,6 +17,8 @@ const supportLinks = [
 ];
 
 export default function Footer() {
+  const { party, contact } = useContent();
+
   return (
     <footer className="bg-navy-950 text-white">
       <div className="container-page py-12">
@@ -73,15 +75,15 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-slate-300">
               <p className="flex gap-3">
                 <MapPin className="mt-0.5 shrink-0 text-saffron-400" size={18} />
-                Office address placeholder, India
+                {contact.address}
               </p>
               <p className="flex gap-3">
                 <Mail className="mt-0.5 shrink-0 text-saffron-400" size={18} />
-                info@infiindia.org
+                  {contact.email}
               </p>
               <p className="flex gap-3">
                 <Phone className="mt-0.5 shrink-0 text-saffron-400" size={18} />
-                +91-00000-00000
+                  {contact.phone}
               </p>
             </div>
             <div className="mt-5 flex gap-3">

@@ -3,10 +3,11 @@ import { BadgeIndianRupee, Landmark, QrCode } from "lucide-react";
 import CTAButton from "../components/CTAButton.jsx";
 import DonationCard from "../components/DonationCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
-import { donationAmounts } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 import { submitDonationInterest } from "../services/api.js";
 
 export default function Donate() {
+  const { donationAmounts } = useContent();
   const [selectedAmount, setSelectedAmount] = useState(donationAmounts[0]);
   const [status, setStatus] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);

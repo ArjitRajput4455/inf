@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { interestedAreas } from "../constants/content.js";
+import { useContent } from "../context/ContentContext.jsx";
 import { submitJoin } from "../services/api.js";
 import CTAButton from "./CTAButton.jsx";
 
@@ -17,6 +17,7 @@ const initialState = {
 };
 
 export default function JoinForm() {
+  const { interestedAreas } = useContent();
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);
