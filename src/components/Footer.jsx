@@ -11,8 +11,7 @@ const quickLinks = [
 
 const supportLinks = [
   ["Join INF INDIA", "/join"],
-  ["Enroll for Support", "/support"],
-  ["Donate & Support", "/donate"],
+  ["Donate", "/donate"],
   ["Contact", "/contact"],
 ];
 

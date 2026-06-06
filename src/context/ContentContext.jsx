@@ -13,6 +13,7 @@ export function ContentProvider({ children }) {
     vision: defaults.vision,
     coreObjectives: defaults.coreObjectives,
     workActions: defaults.workActions,
+    focusAreas: defaults.focusAreas,
     initiatives: defaults.initiatives,
     supportCategories: defaults.supportCategories,
     interestedAreas: defaults.interestedAreas,
@@ -20,6 +21,8 @@ export function ContentProvider({ children }) {
     spokespersons: defaults.spokespersons,
     joinTeams: defaults.joinTeams,
     donationAmounts: defaults.donationAmounts,
+    newsPage: defaults.newsPage,
+    newsEventSections: defaults.newsEventSections,
     newsItems: defaults.newsItems,
     contact: {
       address: "Office address placeholder, India",

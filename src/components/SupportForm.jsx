@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { UploadCloud } from "lucide-react";
 import { useContent } from "../context/ContentContext.jsx";
 import { submitSupport } from "../services/api.js";
 import CTAButton from "./CTAButton.jsx";
@@ -12,7 +11,6 @@ const initialState = {
   district: "",
   supportCategory: "",
   requirementDescription: "",
-  documentName: "",
 };
 
 export default function SupportForm() {
@@ -22,10 +20,10 @@ export default function SupportForm() {
   const [loading, setLoading] = useState(false);
 
   const update = (event) => {
-    const { name, value, files } = event.target;
+    const { name, value } = event.target;
     setForm((current) => ({
       ...current,
-      [name]: files?.[0]?.name || value,
+      [name]: value,
     }));
   };
 
@@ -38,7 +36,6 @@ export default function SupportForm() {
       const data = await submitSupport(form);
       setStatus({ type: "success", message: data.message || "Submitted successfully" });
       setForm(initialState);
-      event.currentTarget.reset();
     } catch (error) {
       setStatus({ type: "error", message: error.message });
     } finally {
@@ -81,19 +78,6 @@ export default function SupportForm() {
         <div className="md:col-span-2">
           <label className="label" htmlFor="requirementDescription">Description of Requirement</label>
           <textarea className="field min-h-36 resize-y" id="requirementDescription" name="requirementDescription" value={form.requirementDescription} onChange={update} required />
-        </div>
-        <div className="md:col-span-2">
-          <label className="label" htmlFor="documentName">Upload Document</label>
-          <label className="flex cursor-pointer flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-8 text-center transition hover:border-saffron-500 hover:bg-saffron-500/5">
-            <UploadCloud className="mb-3 text-saffron-500" size={32} />
-            <span className="font-bold text-navy-950">
-              {form.documentName || "Choose a document placeholder"}
-            </span>
-            <span className="mt-1 text-sm text-slate-500">
-              File upload storage can be connected in the next backend phase.
-            </span>
-            <input id="documentName" name="documentName" type="file" className="sr-only" onChange={update} />
-          </label>
         </div>
       </div>
 

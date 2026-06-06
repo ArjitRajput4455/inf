@@ -1,29 +1,14 @@
-import {
-  BookOpenCheck,
-  BriefcaseBusiness,
-  HeartPulse,
-  HandHeart,
-  ShieldCheck,
-  Sprout,
-} from "lucide-react";
+import { ShieldCheck, Sprout } from "lucide-react";
 import HeroSection from "../components/HeroSection.jsx";
+import FocusAreaCard from "../components/FocusAreaCard.jsx";
 import InitiativeCard from "../components/InitiativeCard.jsx";
 import MissionVisionCard from "../components/MissionVisionCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import CTAButton from "../components/CTAButton.jsx";
 import { useContent } from "../context/ContentContext.jsx";
 
-const highlights = [
-  ["Farmers Support", Sprout],
-  ["Youth Jobs", BriefcaseBusiness],
-  ["Anti-Corruption", ShieldCheck],
-  ["Women Self-Dependency", HandHeart],
-  ["Healthcare", HeartPulse],
-  ["Education", BookOpenCheck],
-];
-
 export default function Home() {
-  const { initiatives, mission, vision, workActions } = useContent();
+  const { focusAreas, initiatives, mission, vision, workActions } = useContent();
 
   return (
     <>
@@ -32,16 +17,8 @@ export default function Home() {
       <section className="section-padding bg-white">
         <div className="container-page">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {highlights.map(([label, Icon]) => (
-              <div
-                key={label}
-                className="flex items-center gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:-translate-y-1 hover:bg-white hover:shadow-card"
-              >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-navy-900 text-white">
-                  <Icon size={26} />
-                </div>
-                <p className="text-lg font-black text-navy-950">{label}</p>
-              </div>
+            {focusAreas.map((area) => (
+              <FocusAreaCard key={area.slug} area={area} />
             ))}
           </div>
         </div>
@@ -110,13 +87,13 @@ export default function Home() {
               Build a corruption-free and united future with INF INDIA.
             </h2>
             <p className="mx-auto mt-4 max-w-2xl leading-8 text-slate-200">
-              Join as a volunteer, enroll for support, or contribute to the movement
-              focused on youth, farmers, women, education, healthcare, and justice.
+              Join as a volunteer or contribute to the movement focused on youth, farmers,
+              women, education, healthcare, and justice.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <CTAButton to="/join">Join INF INDIA</CTAButton>
-              <CTAButton to="/support" variant="secondary">
-                Enroll for Support
+              <CTAButton to="/donate" variant="secondary">
+                Donate
               </CTAButton>
             </div>
           </div>

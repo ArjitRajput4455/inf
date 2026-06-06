@@ -6,8 +6,9 @@ function getToken() {
 }
 
 async function adminRequest(path, options = {}) {
+  const isFormData = options.body instanceof FormData;
   const headers = {
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
     ...(options.headers || {}),
   };
 
@@ -41,7 +42,36 @@ export const updateAdminContent = (payload) =>
 export const resetAdminContent = () =>
   adminRequest("/admin/content/reset", { method: "POST" });
 
+export const uploadLeadershipPhoto = (file) => {
+  const formData = new FormData();
+  formData.append("photo", file);
+  return adminRequest("/admin/upload/leadership-photo", {
+    method: "POST",
+    body: formData,
+  });
+};
+
+export const uploadNewsImage = (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return adminRequest("/admin/upload/news-image", {
+    method: "POST",
+    body: formData,
+  });
+};
+
+export const uploadNewsVideo = (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return adminRequest("/admin/upload/news-video", {
+    method: "POST",
+    body: formData,
+  });
+};
+
 export const fetchDashboardStats = () => adminRequest("/admin/stats");
+
+export const fetchDashboardOverview = () => adminRequest("/admin/dashboard");
 
 export const fetchJoinSubmissions = () => adminRequest("/admin/submissions/join");
 

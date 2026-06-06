@@ -1,109 +1,68 @@
 import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import {
   fetchAdminContent,
-  fetchContactSubmissions,
-  fetchDashboardStats,
-  fetchDonationSubmissions,
-  fetchJoinSubmissions,
-  fetchSupportSubmissions,
   resetAdminContent,
   updateAdminContent,
 } from "../services/adminApi.js";
+import * as defaults from "../constants/content.js";
+import { adminNavLabels } from "./navItems.js";
+import { Field, ListEditor } from "./components/AdminFields.jsx";
+import AdminHomeDashboard from "./components/AdminHomeDashboard.jsx";
+import LeadershipEditor from "./components/LeadershipEditor.jsx";
+import NewsEditor from "./components/NewsEditor.jsx";
 
-const tabs = [
-  { id: "party", label: "Party & Slogans" },
-  { id: "mission", label: "Mission & Vision" },
-  { id: "objectives", label: "Objectives & Actions" },
-  { id: "initiatives", label: "Initiatives" },
-  { id: "leadership", label: "Leadership" },
-  { id: "categories", label: "Form Categories" },
-  { id: "news", label: "News & Events" },
-  { id: "contact", label: "Contact Info" },
-  { id: "submissions", label: "Submissions" },
-];
-
-function Field({ label, value, onChange, multiline = false }) {
+function PageToggle({ enabled, onChange }) {
   return (
-    <div>
-      <label className="label">{label}</label>
-      {multiline ? (
-        <textarea
-          className="field min-h-28 resize-y"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      ) : (
-        <input className="field" value={value} onChange={(e) => onChange(e.target.value)} />
-      )}
-    </div>
-  );
-}
-
-function ListEditor({ label, items, onChange }) {
-  const text = items.join("\n");
-  return (
-    <div>
-      <label className="label">{label} (one item per line)</label>
-      <textarea
-        className="field min-h-36 resize-y font-mono text-sm"
-        value={text}
-        onChange={(e) => onChange(e.target.value.split("\n").filter(Boolean))}
+    <button
+      type="button"
+      role="switch"
+      aria-checked={enabled}
+      onClick={() => onChange(!enabled)}
+      className={`relative h-7 w-12 shrink-0 rounded-full transition ${
+        enabled ? "bg-saffron-500" : "bg-slate-300"
+      }`}
+    >
+      <span
+        className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition ${
+          enabled ? "left-5" : "left-0.5"
+        }`}
       />
-    </div>
+    </button>
   );
 }
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState("party");
+  const { activeTab } = useOutletContext();
   const [content, setContent] = useState(null);
-  const [stats, setStats] = useState(null);
-  const [submissions, setSubmissions] = useState({});
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  const load = async () => {
-    setLoading(true);
-    try {
-      const [contentRes, statsRes] = await Promise.all([
-        fetchAdminContent(),
-        fetchDashboardStats(),
-      ]);
-      setContent(contentRes.data);
-      setStats(statsRes.data);
-    } catch (error) {
-      setStatus(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    load();
-  }, []);
+    if (activeTab === "dashboard" || content) return;
 
-  const loadSubmissions = async () => {
-    try {
-      const [join, support, contact, donations] = await Promise.all([
-        fetchJoinSubmissions(),
-        fetchSupportSubmissions(),
-        fetchContactSubmissions(),
-        fetchDonationSubmissions(),
-      ]);
-      setSubmissions({
-        join: join.data,
-        support: support.data,
-        contact: contact.data,
-        donations: donations.data,
-      });
-    } catch (error) {
-      setStatus(error.message);
-    }
-  };
-
-  useEffect(() => {
-    if (activeTab === "submissions") loadSubmissions();
-  }, [activeTab]);
+    (async () => {
+      setLoading(true);
+      try {
+        const contentRes = await fetchAdminContent();
+        setContent({
+          ...contentRes.data,
+          focusAreas: contentRes.data.focusAreas?.length
+            ? contentRes.data.focusAreas
+            : defaults.focusAreas,
+          newsPage: contentRes.data.newsPage || defaults.newsPage,
+          newsEventSections: contentRes.data.newsEventSections?.length
+            ? contentRes.data.newsEventSections
+            : defaults.newsEventSections,
+        });
+      } catch (error) {
+        setStatus(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [activeTab, content]);
 
   const save = async () => {
     setSaving(true);
@@ -129,27 +88,28 @@ export default function AdminDashboard() {
     }
   };
 
+  if (activeTab === "dashboard") {
+    return <AdminHomeDashboard />;
+  }
+
   if (loading || !content) {
-    return <p className="text-slate-600">Loading admin dashboard...</p>;
+    return <p className="text-slate-600">Loading content...</p>;
   }
 
   return (
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-navy-950">Content Manager</h1>
-          {stats && (
-            <p className="mt-1 text-sm text-slate-600">
-              Join: {stats.joinCount} | Support: {stats.supportCount} | Contact:{" "}
-              {stats.contactCount} | Donations: {stats.donationCount}
-            </p>
-          )}
+          <h1 className="text-3xl font-black text-navy-950">
+            {adminNavLabels[activeTab] || "Content"}
+          </h1>
+          <p className="mt-1 text-sm text-slate-600">Edit public website content for this section.</p>
         </div>
         <div className="flex gap-3">
           <button
             type="button"
             onClick={reset}
-            className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-bold text-slate-700"
+            className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-white"
           >
             Reset Defaults
           </button>
@@ -157,7 +117,7 @@ export default function AdminDashboard() {
             type="button"
             onClick={save}
             disabled={saving}
-            className="rounded-full bg-saffron-500 px-5 py-2.5 text-sm font-bold text-white disabled:opacity-70"
+            className="rounded-full bg-saffron-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-saffron-600 disabled:opacity-70"
           >
             {saving ? "Saving..." : "Save Changes"}
           </button>
@@ -165,29 +125,90 @@ export default function AdminDashboard() {
       </div>
 
       {status && (
-        <p className="mb-4 rounded-2xl bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
+        <p
+          className={`mb-4 rounded-2xl px-4 py-3 text-sm font-semibold ${
+            status.includes("successfully") || status.includes("defaults")
+              ? "bg-green-50 text-green-700"
+              : "bg-red-50 text-red-700"
+          }`}
+        >
           {status}
         </p>
       )}
 
-      <div className="mb-6 flex flex-wrap gap-2">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            onClick={() => setActiveTab(tab.id)}
-            className={`rounded-full px-4 py-2 text-sm font-semibold ${
-              activeTab === tab.id
-                ? "bg-navy-950 text-white"
-                : "bg-white text-slate-700 shadow-sm"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
       <div className="rounded-[2rem] bg-white p-6 shadow-card">
+        {activeTab === "focusAreas" && (
+          <div className="space-y-6">
+            <p className="text-sm text-slate-600">
+              Control homepage focus cards. When a page is enabled, visitors can click the
+              card and open a dedicated policy page. When disabled, the card stays visible
+              but is not clickable.
+            </p>
+            {(content.focusAreas || []).map((item, index) => (
+              <div key={item.slug || index} className="rounded-2xl border border-slate-200 p-5">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                  <div>
+                    <h3 className="text-lg font-black text-navy-950">{item.title}</h3>
+                    <p className="text-xs text-slate-500">/{item.slug}</p>
+                  </div>
+                  <label className="flex items-center gap-3 text-sm font-semibold text-slate-700">
+                    Show dedicated page
+                    <PageToggle
+                      enabled={!!item.pageEnabled}
+                      onChange={(v) => {
+                        const focusAreas = [...content.focusAreas];
+                        focusAreas[index] = { ...item, pageEnabled: v };
+                        setContent({ ...content, focusAreas });
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  <Field label="Title" value={item.title} onChange={(v) => {
+                    const focusAreas = [...content.focusAreas];
+                    focusAreas[index] = { ...item, title: v };
+                    setContent({ ...content, focusAreas });
+                  }} />
+                  <Field label="Icon (Sprout, BriefcaseBusiness, etc.)" value={item.icon} onChange={(v) => {
+                    const focusAreas = [...content.focusAreas];
+                    focusAreas[index] = { ...item, icon: v };
+                    setContent({ ...content, focusAreas });
+                  }} />
+                  <Field label="Tagline" value={item.tagline} onChange={(v) => {
+                    const focusAreas = [...content.focusAreas];
+                    focusAreas[index] = { ...item, tagline: v };
+                    setContent({ ...content, focusAreas });
+                  }} />
+                  <Field label="Card Summary" value={item.summary} onChange={(v) => {
+                    const focusAreas = [...content.focusAreas];
+                    focusAreas[index] = { ...item, summary: v };
+                    setContent({ ...content, focusAreas });
+                  }} />
+                </div>
+                <div className="mt-4">
+                  <Field label="Page Introduction" multiline value={item.intro} onChange={(v) => {
+                    const focusAreas = [...content.focusAreas];
+                    focusAreas[index] = { ...item, intro: v };
+                    setContent({ ...content, focusAreas });
+                  }} />
+                </div>
+                <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                  <ListEditor label="Commitments" items={item.commitments || []} onChange={(v) => {
+                    const focusAreas = [...content.focusAreas];
+                    focusAreas[index] = { ...item, commitments: v };
+                    setContent({ ...content, focusAreas });
+                  }} />
+                  <ListEditor label="Ground Priorities" items={item.priorities || []} onChange={(v) => {
+                    const focusAreas = [...content.focusAreas];
+                    focusAreas[index] = { ...item, priorities: v };
+                    setContent({ ...content, focusAreas });
+                  }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         {activeTab === "party" && (
           <div className="grid gap-4 md:grid-cols-2">
             <Field label="Party Name" value={content.party.name} onChange={(v) => setContent({ ...content, party: { ...content.party, name: v } })} />
@@ -242,47 +263,7 @@ export default function AdminDashboard() {
         )}
 
         {activeTab === "leadership" && (
-          <div className="grid gap-8 lg:grid-cols-2">
-            <div className="space-y-4">
-              <h3 className="font-black text-navy-950">Office Bearers</h3>
-              {content.officeBearers.map((item, index) => (
-                <div key={index} className="rounded-2xl border border-slate-200 p-4">
-                  <Field label="Name" value={item.name} onChange={(v) => {
-                    const officeBearers = [...content.officeBearers];
-                    officeBearers[index] = { ...item, name: v };
-                    setContent({ ...content, officeBearers });
-                  }} />
-                  <div className="mt-3">
-                    <Field label="Role" value={item.role} onChange={(v) => {
-                      const officeBearers = [...content.officeBearers];
-                      officeBearers[index] = { ...item, role: v };
-                      setContent({ ...content, officeBearers });
-                    }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-black text-navy-950">Spokespersons</h3>
-              {content.spokespersons.map((item, index) => (
-                <div key={index} className="rounded-2xl border border-slate-200 p-4">
-                  <Field label="Name" value={item.name} onChange={(v) => {
-                    const spokespersons = [...content.spokespersons];
-                    spokespersons[index] = { ...item, name: v };
-                    setContent({ ...content, spokespersons });
-                  }} />
-                  <div className="mt-3">
-                    <Field label="Role" value={item.role} onChange={(v) => {
-                      const spokespersons = [...content.spokespersons];
-                      spokespersons[index] = { ...item, role: v };
-                      setContent({ ...content, spokespersons });
-                    }} />
-                  </div>
-                </div>
-              ))}
-              <ListEditor label="Join Teams" items={content.joinTeams} onChange={(v) => setContent({ ...content, joinTeams: v })} />
-            </div>
-          </div>
+          <LeadershipEditor content={content} setContent={setContent} />
         )}
 
         {activeTab === "categories" && (
@@ -293,78 +274,13 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {activeTab === "news" && (
-          <div className="space-y-6">
-            {content.newsItems.map((item, index) => (
-              <div key={index} className="rounded-2xl border border-slate-200 p-4">
-                <Field label="Category" value={item.category} onChange={(v) => {
-                  const newsItems = [...content.newsItems];
-                  newsItems[index] = { ...item, category: v };
-                  setContent({ ...content, newsItems });
-                }} />
-                <div className="mt-3">
-                  <Field label="Title" value={item.title} onChange={(v) => {
-                    const newsItems = [...content.newsItems];
-                    newsItems[index] = { ...item, title: v };
-                    setContent({ ...content, newsItems });
-                  }} />
-                </div>
-                <div className="mt-3">
-                  <Field label="Description" multiline value={item.description} onChange={(v) => {
-                    const newsItems = [...content.newsItems];
-                    newsItems[index] = { ...item, description: v };
-                    setContent({ ...content, newsItems });
-                  }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        {activeTab === "news" && <NewsEditor content={content} setContent={setContent} />}
 
         {activeTab === "contact" && (
           <div className="grid gap-4 md:grid-cols-2">
             <Field label="Office Address" value={content.contact.address} onChange={(v) => setContent({ ...content, contact: { ...content.contact, address: v } })} />
             <Field label="Email" value={content.contact.email} onChange={(v) => setContent({ ...content, contact: { ...content.contact, email: v } })} />
             <Field label="Phone" value={content.contact.phone} onChange={(v) => setContent({ ...content, contact: { ...content.contact, phone: v } })} />
-          </div>
-        )}
-
-        {activeTab === "submissions" && (
-          <div className="space-y-8">
-            {[
-              ["join", "Join Requests"],
-              ["support", "Support Requests"],
-              ["contact", "Contact Messages"],
-              ["donations", "Donation Interest"],
-            ].map(([key, title]) => (
-              <div key={key}>
-                <h3 className="mb-3 font-black text-navy-950">{title}</h3>
-                <div className="overflow-x-auto rounded-2xl border border-slate-200">
-                  <table className="min-w-full text-left text-sm">
-                    <thead className="bg-slate-50">
-                      <tr>
-                        <th className="px-4 py-3">Date</th>
-                        <th className="px-4 py-3">Details</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {(submissions[key] || []).slice(0, 20).map((row) => (
-                        <tr key={row._id} className="border-t border-slate-100">
-                          <td className="px-4 py-3 whitespace-nowrap">
-                            {new Date(row.createdAt).toLocaleString()}
-                          </td>
-                          <td className="px-4 py-3">
-                            <pre className="whitespace-pre-wrap text-xs text-slate-600">
-                              {JSON.stringify(row, null, 2)}
-                            </pre>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ))}
           </div>
         )}
       </div>

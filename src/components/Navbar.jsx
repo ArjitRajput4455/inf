@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useContent } from "../context/ContentContext.jsx";
 import CTAButton from "./CTAButton.jsx";
 import MobileMenu from "./MobileMenu.jsx";
@@ -12,7 +12,6 @@ const links = [
   { label: "Initiatives", to: "/initiatives" },
   { label: "Leadership", to: "/leadership" },
   { label: "Join", to: "/join" },
-  { label: "Support", to: "/support" },
   { label: "Donate", to: "/donate" },
   { label: "News", to: "/news" },
   { label: "Contact", to: "/contact" },
@@ -34,7 +33,7 @@ export default function Navbar() {
     localStorage.setItem("inf-theme", theme);
   }, [isLight, theme]);
 
-  const toggleTheme = () => setTheme((current) => (current === "light" ? "dark" : "light"));
+  // const toggleTheme = () => setTheme((current) => (current === "light" ? "dark" : "light"));
 
   return (
     <header
@@ -102,6 +101,7 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-3 xl:flex">
+            {/* Dark mode toggle — hidden for now
             <button
               type="button"
               onClick={toggleTheme}
@@ -114,6 +114,7 @@ export default function Navbar() {
             >
               {isLight ? <Moon size={18} /> : <Sun size={18} />}
             </button>
+            */}
             <CTAButton to="/join" className="px-4 py-2">
               Join
             </CTAButton>
@@ -123,6 +124,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2 lg:hidden">
+            {/* Dark mode toggle — hidden for now
             <button
               type="button"
               onClick={toggleTheme}
@@ -135,6 +137,7 @@ export default function Navbar() {
             >
               {isLight ? <Moon size={18} /> : <Sun size={18} />}
             </button>
+            */}
             <button
               type="button"
               className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition ${

@@ -32,8 +32,8 @@ export default function InitiativeCard({ initiative }) {
       <p className="mt-4 flex-1 text-sm leading-7 text-slate-600">
         {initiative.description}
       </p>
-      <CTAButton to="/support" variant="dark" className="mt-6 w-fit px-5 py-2.5">
-        Join Support
+      <CTAButton to="/join" variant="dark" className="mt-6 w-fit px-5 py-2.5">
+        Join INF INDIA
         <ArrowRight className="ml-2" size={16} />
       </CTAButton>
     </article>

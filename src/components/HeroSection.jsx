@@ -1,4 +1,4 @@
-import { BadgeIndianRupee, HeartHandshake, UserPlus } from "lucide-react";
+import { BadgeIndianRupee, UserPlus } from "lucide-react";
 import { useContent } from "../context/ContentContext.jsx";
 import CTAButton from "./CTAButton.jsx";
 import infHeroLogo from "../customs/inflogo-removebg-preview.png";
@@ -46,11 +46,7 @@ export default function HeroSection() {
             </CTAButton>
             <CTAButton to="/donate" variant="secondary">
               <BadgeIndianRupee className="mr-2" size={18} />
-              Donate & Support
-            </CTAButton>
-            <CTAButton to="/support" variant="outline">
-              <HeartHandshake className="mr-2" size={18} />
-              Enroll for Support
+              Donate
             </CTAButton>
           </div>
         </div>

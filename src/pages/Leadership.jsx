@@ -26,8 +26,8 @@ export default function Leadership() {
             description="Key office bearers of Indian National Federation Party, India."
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {officeBearers.map((member) => (
-              <TeamMemberCard key={member.name} member={member} />
+            {officeBearers.filter((member) => member.name?.trim()).map((member) => (
+              <TeamMemberCard key={`${member.name}-${member.role}`} member={member} />
             ))}
           </div>
         </div>
@@ -41,8 +41,8 @@ export default function Leadership() {
             description="Representatives for communication, public messages, and media interaction."
           />
           <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-2">
-            {spokespersons.map((member) => (
-              <TeamMemberCard key={member.name} member={member} />
+            {spokespersons.filter((member) => member.name?.trim()).map((member) => (
+              <TeamMemberCard key={`${member.name}-${member.role}`} member={member} />
             ))}
           </div>
         </div>

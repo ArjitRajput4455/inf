@@ -41,14 +41,11 @@ export default function Initiatives() {
               Want to work with an initiative?
             </h2>
             <p className="mx-auto mt-4 max-w-2xl leading-8 text-slate-200">
-              Join INF INDIA or enroll for support so the team can understand your
-              area, requirement, and preferred participation.
+              Join INF INDIA so the team can understand your area, skills, and preferred
+              participation in public service.
             </p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex justify-center">
               <CTAButton to="/join">Join INF INDIA</CTAButton>
-              <CTAButton to="/support" variant="secondary">
-                Enroll for Support
-              </CTAButton>
             </div>
           </div>
         </div>
