@@ -11,6 +11,7 @@ import { Field, ListEditor } from "./components/AdminFields.jsx";
 import AdminHomeDashboard from "./components/AdminHomeDashboard.jsx";
 import LeadershipEditor from "./components/LeadershipEditor.jsx";
 import NewsEditor from "./components/NewsEditor.jsx";
+import DonationEditor from "./components/DonationEditor.jsx";
 
 function PageToggle({ enabled, onChange }) {
   return (
@@ -52,9 +53,11 @@ export default function AdminDashboard() {
             ? contentRes.data.focusAreas
             : defaults.focusAreas,
           newsPage: contentRes.data.newsPage || defaults.newsPage,
+          homePage: contentRes.data.homePage || defaults.homePage,
           newsEventSections: contentRes.data.newsEventSections?.length
             ? contentRes.data.newsEventSections
             : defaults.newsEventSections,
+          donationPage: contentRes.data.donationPage || defaults.donationPage,
         });
       } catch (error) {
         setStatus(error.message);
@@ -275,6 +278,10 @@ export default function AdminDashboard() {
         )}
 
         {activeTab === "news" && <NewsEditor content={content} setContent={setContent} />}
+
+        {activeTab === "donate" && (
+          <DonationEditor content={content} setContent={setContent} />
+        )}
 
         {activeTab === "contact" && (
           <div className="grid gap-4 md:grid-cols-2">

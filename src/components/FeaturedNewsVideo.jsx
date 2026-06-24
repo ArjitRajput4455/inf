@@ -1,9 +1,9 @@
 import { resolveMediaUrl } from "../utils/mediaUrl.js";
 import { resolveFeaturedVideo } from "../utils/videoUrl.js";
 
-export default function FeaturedNewsVideo({ newsPage, party }) {
-  const video = resolveFeaturedVideo(newsPage?.featuredVideoUrl);
-  const poster = resolveMediaUrl(newsPage?.featuredVideoPosterUrl);
+export default function FeaturedNewsVideo({ page, party, eyebrow }) {
+  const video = resolveFeaturedVideo(page?.featuredVideoUrl);
+  const poster = resolveMediaUrl(page?.featuredVideoPosterUrl);
 
   return (
     <section className="bg-navy-950 text-white">
@@ -11,14 +11,14 @@ export default function FeaturedNewsVideo({ newsPage, party }) {
         <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.22em] text-saffron-300">
-              {party.shortName} — News & Events
+              {eyebrow || `${party.shortName} — News & Events`}
             </p>
             <h1 className="mt-2 max-w-3xl text-2xl font-black leading-tight sm:text-4xl">
-              {newsPage?.featuredTitle || "Latest Updates & Public Message"}
+              {page?.featuredTitle || "Latest Updates & Public Message"}
             </h1>
-            {newsPage?.featuredSubtitle && (
+            {page?.featuredSubtitle && (
               <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
-                {newsPage.featuredSubtitle}
+                {page.featuredSubtitle}
               </p>
             )}
           </div>

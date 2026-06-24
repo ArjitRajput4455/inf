@@ -8,7 +8,11 @@ export default function News() {
 
   return (
     <>
-      <FeaturedNewsVideo newsPage={newsPage} party={party} />
+      <FeaturedNewsVideo
+        page={newsPage}
+        party={party}
+        eyebrow={`${party.shortName} — News & Events`}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-page">
@@ -21,7 +25,10 @@ export default function News() {
             {newsItems
               .filter((item) => item.title?.trim())
               .map((item) => (
-                <NewsCard key={`${item.title}-${item.category}`} item={item} />
+                <NewsCard
+                  key={item.slug || item.title}
+                  item={item}
+                />
               ))}
           </div>
         </div>

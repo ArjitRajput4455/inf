@@ -9,6 +9,7 @@ import {
   Newspaper,
   Phone,
   LayoutGrid,
+  IndianRupee,
 } from "lucide-react";
 
 export const adminNavItems = [
@@ -21,6 +22,7 @@ export const adminNavItems = [
   { id: "leadership", label: "Leadership", icon: Users },
   { id: "categories", label: "Form Categories", icon: Tags },
   { id: "news", label: "News & Events", icon: Newspaper },
+  { id: "donate", label: "Donate Page", icon: IndianRupee },
   { id: "contact", label: "Contact Info", icon: Phone },
 ];
 

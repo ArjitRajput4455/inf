@@ -69,6 +69,15 @@ export const uploadNewsVideo = (file) => {
   });
 };
 
+export const uploadDonationQr = (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return adminRequest("/admin/upload/donation-qr", {
+    method: "POST",
+    body: formData,
+  });
+};
+
 export const fetchDashboardStats = () => adminRequest("/admin/stats");
 
 export const fetchDashboardOverview = () => adminRequest("/admin/dashboard");

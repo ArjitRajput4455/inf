@@ -6,13 +6,29 @@ import MissionVisionCard from "../components/MissionVisionCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import CTAButton from "../components/CTAButton.jsx";
 import { useContent } from "../context/ContentContext.jsx";
+import FeaturedNewsVideo from "../components/FeaturedNewsVideo.jsx";
 
 export default function Home() {
-  const { focusAreas, initiatives, mission, vision, workActions } = useContent();
+  const { focusAreas, initiatives, mission, vision, workActions, homePage, newsPage, party } =
+    useContent();
+
+  const featuredPage = {
+    featuredTitle: homePage?.featuredTitle || newsPage?.featuredTitle,
+    featuredSubtitle: homePage?.featuredSubtitle || newsPage?.featuredSubtitle,
+    featuredVideoUrl: homePage?.featuredVideoUrl || newsPage?.featuredVideoUrl,
+    featuredVideoPosterUrl:
+      homePage?.featuredVideoPosterUrl || newsPage?.featuredVideoPosterUrl,
+  };
 
   return (
     <>
       <HeroSection />
+
+      <FeaturedNewsVideo
+        page={featuredPage}
+        party={party}
+        eyebrow={`${party.shortName} — Featured Message`}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-page">

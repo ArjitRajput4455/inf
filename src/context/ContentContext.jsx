@@ -21,6 +21,8 @@ export function ContentProvider({ children }) {
     spokespersons: defaults.spokespersons,
     joinTeams: defaults.joinTeams,
     donationAmounts: defaults.donationAmounts,
+    donationPage: defaults.donationPage,
+    homePage: defaults.homePage,
     newsPage: defaults.newsPage,
     newsEventSections: defaults.newsEventSections,
     newsItems: defaults.newsItems,

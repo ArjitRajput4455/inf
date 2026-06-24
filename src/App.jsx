@@ -9,6 +9,7 @@ import Join from "./pages/Join.jsx";
 import Support from "./pages/Support.jsx";
 import Donate from "./pages/Donate.jsx";
 import News from "./pages/News.jsx";
+import NewsDetail from "./pages/NewsDetail.jsx";
 import Contact from "./pages/Contact.jsx";
 import FocusArea from "./pages/FocusArea.jsx";
 import AdminLogin from "./admin/AdminLogin.jsx";
@@ -30,6 +31,7 @@ function PublicSite() {
           <Route path="/support" element={<Support />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:slug" element={<NewsDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/areas/:slug" element={<FocusArea />} />
         </Routes>
