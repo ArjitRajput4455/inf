@@ -1,6 +1,7 @@
 import { BadgeIndianRupee, UserPlus } from "lucide-react";
 import { useContent } from "../context/ContentContext.jsx";
 import CTAButton from "./CTAButton.jsx";
+import MovementSlogan from "./MovementSlogan.jsx";
 import infHeroLogo from "../customs/inflogo-removebg-preview.png";
 
 export default function HeroSection() {
@@ -15,7 +16,7 @@ export default function HeroSection() {
       <div className="container-page grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:py-12 xl:gap-12">
         <div>
           <div className="hero-website-badge mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-bold text-saffron-300 backdrop-blur">
-            Official website: {party.website}
+            People-first politics for unity, integrity, and accountable governance
           </div>
           <h1 className="max-w-4xl text-3xl font-black uppercase leading-tight tracking-tight sm:text-4xl lg:text-5xl">
             {party.name}
@@ -28,15 +29,8 @@ export default function HeroSection() {
               “{party.sloganEnglish}”
             </p>
           </div>
-          <div className="hero-slogan-card mt-5 inline-flex rounded-3xl border border-white/15 bg-white/10 px-5 py-3 shadow-2xl backdrop-blur">
-            <div>
-              <p className="hero-slogan-label text-xs font-black uppercase tracking-[0.2em] text-slate-300">
-                Punjab Election 2027 Slogan
-              </p>
-              <p className="hero-slogan-text mt-1 text-xl font-black text-white">
-                “{party.punjabSlogan}”
-              </p>
-            </div>
+          <div className="mt-5">
+            <MovementSlogan party={party} light />
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

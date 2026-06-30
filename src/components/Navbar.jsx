@@ -11,18 +11,20 @@ const links = [
   { label: "About", to: "/about" },
   { label: "Initiatives", to: "/initiatives" },
   { label: "Leadership", to: "/leadership" },
-  { label: "Join", to: "/join" },
-  { label: "Donate", to: "/donate" },
   { label: "News", to: "/news" },
   { label: "Contact", to: "/contact" },
 ];
 
 export default function Navbar() {
+
   const [open, setOpen] = useState(false);
+  
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") return "light";
     return localStorage.getItem("inf-theme") || "light";
   });
+
+
   const { party } = useContent();
 
   const isLight = theme === "light";

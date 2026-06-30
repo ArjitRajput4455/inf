@@ -1,10 +1,12 @@
 export const party = {
   name: "INDIAN NATIONAL FEDERATION PARTY, INDIA",
   shortName: "INF INDIA",
-  website: "www.infiindia.org",
+  website: "infindia",
   sloganHindi: "विभाजित राष्ट्र आगे नहीं बढ़ सकता।",
   sloganEnglish: "A divided Nation cannot move forward.",
   punjabSlogan: "युवा को काम, किसान को दाम",
+  movementSloganEnglish: "Work for youth, fair price for farmers",
+  movementSloganPunjabi: "ਜਵਾਨਾਂ ਨੂੰ ਕੰਮ, ਕਿਸਾਨਾਂ ਨੂੰ ਦਾਮ",
 };
 
 export const mission =

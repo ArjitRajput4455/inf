@@ -217,7 +217,9 @@ export default function AdminDashboard() {
             <Field label="Party Name" value={content.party.name} onChange={(v) => setContent({ ...content, party: { ...content.party, name: v } })} />
             <Field label="Short Name" value={content.party.shortName} onChange={(v) => setContent({ ...content, party: { ...content.party, shortName: v } })} />
             <Field label="Website" value={content.party.website} onChange={(v) => setContent({ ...content, party: { ...content.party, website: v } })} />
-            <Field label="Punjab 2027 Slogan" value={content.party.punjabSlogan} onChange={(v) => setContent({ ...content, party: { ...content.party, punjabSlogan: v } })} />
+            <Field label="Movement Slogan (Hindi)" value={content.party.punjabSlogan} onChange={(v) => setContent({ ...content, party: { ...content.party, punjabSlogan: v } })} />
+            <Field label="Movement Slogan (English)" value={content.party.movementSloganEnglish || ""} onChange={(v) => setContent({ ...content, party: { ...content.party, movementSloganEnglish: v } })} />
+            <Field label="Movement Slogan (Punjabi)" value={content.party.movementSloganPunjabi || ""} onChange={(v) => setContent({ ...content, party: { ...content.party, movementSloganPunjabi: v } })} />
             <Field label="Slogan (Hindi)" value={content.party.sloganHindi} onChange={(v) => setContent({ ...content, party: { ...content.party, sloganHindi: v } })} />
             <Field label="Slogan (English)" value={content.party.sloganEnglish} onChange={(v) => setContent({ ...content, party: { ...content.party, sloganEnglish: v } })} />
           </div>

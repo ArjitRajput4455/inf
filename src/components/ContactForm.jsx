@@ -5,6 +5,7 @@ import CTAButton from "./CTAButton.jsx";
 const initialState = {
   name: "",
   phone: "",
+  alternatePhone: "",
   email: "",
   subject: "",
   message: "",
@@ -18,6 +19,12 @@ export default function ContactForm() {
   const update = (event) => {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
+  };
+
+  const updatePhone = (event) => {
+    const { name, value } = event.target;
+    const digitsOnly = value.replace(/\D/g, "");
+    setForm((current) => ({ ...current, [name]: digitsOnly }));
   };
 
   const submit = async (event) => {
@@ -43,9 +50,33 @@ export default function ContactForm() {
           <label className="label" htmlFor="name">Name</label>
           <input className="field" id="name" name="name" value={form.name} onChange={update} required />
         </div>
-        <div>
-          <label className="label" htmlFor="phone">Phone</label>
-          <input className="field" id="phone" name="phone" value={form.phone} onChange={update} />
+        <div className="space-y-5">
+          <div>
+            <label className="label" htmlFor="phone">Phone</label>
+            <input
+              className="field"
+              id="phone"
+              name="phone"
+              type="tel"
+              inputMode="numeric"
+              autoComplete="tel"
+              value={form.phone}
+              onChange={updatePhone}
+            />
+          </div>
+          <div>
+            <label className="label" htmlFor="alternatePhone">Alternate Number</label>
+            <input
+              className="field"
+              id="alternatePhone"
+              name="alternatePhone"
+              type="tel"
+              inputMode="numeric"
+              autoComplete="tel"
+              value={form.alternatePhone}
+              onChange={updatePhone}
+            />
+          </div>
         </div>
         <div>
           <label className="label" htmlFor="email">Email</label>

@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, Flag } from "lucide-react";
 import CTAButton from "../components/CTAButton.jsx";
+import MovementSlogan from "../components/MovementSlogan.jsx";
 import { useContent } from "../context/ContentContext.jsx";
 import { getFocusAreaIcon } from "../utils/focusAreaIcons.js";
 
@@ -71,8 +72,7 @@ export default function FocusArea() {
               governance for every citizen.
             </p>
             <div className="mt-6 border-t border-white/10 pt-6">
-              <p className="text-sm font-bold text-saffron-300">Punjab 2027</p>
-              <p className="mt-2 text-lg font-black">“{party.punjabSlogan}”</p>
+              <MovementSlogan party={party} light className="border-white/10 bg-white/5" />
             </div>
           </div>
         </div>

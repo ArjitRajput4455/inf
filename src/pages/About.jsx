@@ -1,5 +1,6 @@
 import { Eye, Flag, Target } from "lucide-react";
 import MissionVisionCard from "../components/MissionVisionCard.jsx";
+import MovementSlogan from "../components/MovementSlogan.jsx";
 import ObjectiveCard from "../components/ObjectiveCard.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { useContent } from "../context/ContentContext.jsx";
@@ -57,12 +58,10 @@ export default function About() {
             <Flag size={50} />
           </div>
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-saffron-300">
-              Punjab Election 2027
-            </p>
-            <h2 className="mt-3 text-4xl font-black sm:text-5xl">
-              “{party.punjabSlogan}”
-            </h2>
+            <h2 className="text-3xl font-black sm:text-4xl">Our Public Movement Message</h2>
+            <div className="mt-5 max-w-3xl">
+              <MovementSlogan party={party} />
+            </div>
             <p className="mt-5 max-w-3xl leading-8 text-slate-200">
               A public message focused on meaningful work for youth and fair value
               for farmers, with accountable governance and practical development.
