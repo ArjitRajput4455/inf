@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Globe2, Mail, MapPin, MessageCircle, Phone, Video } from "lucide-react";
+import { Camera, Globe2, Mail, MapPin, MessageCircle, Phone, Video } from "lucide-react";
 import { useContent } from "../context/ContentContext.jsx";
 
 const quickLinks = [
@@ -83,6 +83,10 @@ export default function Footer() {
               <p className="flex gap-3">
                 <Phone className="mt-0.5 shrink-0 text-saffron-400" size={18} />
                   {contact.phone}
+              </p>
+              <p className="flex gap-3">
+                <Camera className="mt-0.5 shrink-0 text-saffron-400" size={18} />
+                  {<a href="https://www.instagram.com/indiannationalfederationparty">Instagram Page</a>}
               </p>
             </div>
             <div className="mt-5 flex gap-3">
