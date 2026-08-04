@@ -1,4 +1,4 @@
-import { Globe2, Mail, MapPin, MessageCircle, Phone, Video } from "lucide-react";
+import { Globe2, Mail, MapPin, MessageCircle, Phone, Video, Camera } from "lucide-react";
 import ContactForm from "../components/ContactForm.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import { useContent } from "../context/ContentContext.jsx";
@@ -46,6 +46,10 @@ export default function Contact() {
                   <Phone className="mt-0.5 shrink-0 text-saffron-400" size={20} />
                   {contact.phone}
                 </p>
+                <p className="flex gap-3">
+                <Camera className="mt-0.5 shrink-0 text-saffron-400" size={18} />
+                  {<a href="https://www.instagram.com/indiannationalfederationparty">Instagram Page</a>}
+              </p>
               </div>
               <div className="mt-6 flex gap-3">
                 {[Globe2, MessageCircle, Video].map((Icon, index) => (
