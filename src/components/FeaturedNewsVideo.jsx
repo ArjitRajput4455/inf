@@ -24,8 +24,8 @@ export default function FeaturedNewsVideo({ page, party, eyebrow }) {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl">
-          <div className="relative aspect-video w-full">
+        <div className="mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl sm:max-w-md">
+          <div className="relative aspect-[9/16] w-full">
             {video.type === "youtube" && (
               <iframe
                 title="INF INDIA featured news video"
@@ -38,7 +38,7 @@ export default function FeaturedNewsVideo({ page, party, eyebrow }) {
 
             {video.type === "file" && (
               <video
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-contain bg-black"
                 src={video.fileUrl}
                 poster={poster || undefined}
                 autoPlay
