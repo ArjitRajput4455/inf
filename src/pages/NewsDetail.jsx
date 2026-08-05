@@ -25,6 +25,31 @@ function findNewsItem(newsItems, slug) {
   );
 }
 
+const URL_REGEX = /(https?:\/\/[^\s]+[^\s.,!?;:]|www\.[^\s]+[^\s.,!?;:])/gi;
+
+function renderTextWithLinks(text) {
+  if (!text) return null;
+  const parts = text.split(URL_REGEX);
+  
+  return parts.map((part, i) => {
+    if (part.match(URL_REGEX)) {
+      const href = part.toLowerCase().startsWith('http') ? part : `https://${part}`;
+      return (
+        <a 
+          key={i} 
+          href={href} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-saffron-600 underline hover:text-saffron-700"
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 export default function NewsDetail() {
   const { slug } = useParams();
   const { newsItems } = useContent();
@@ -62,7 +87,7 @@ export default function NewsDetail() {
               {formatDate(item.publishedAt)}
             </div>
             {item.description && (
-              <p className="mt-5 text-lg leading-8 text-slate-100">{item.description}</p>
+              <p className="mt-5 text-lg leading-8 text-slate-100">{renderTextWithLinks(item.description)}</p>
             )}
           </div>
         </div>
@@ -87,7 +112,7 @@ export default function NewsDetail() {
           <article className="mx-auto max-w-3xl">
             <div className="space-y-5 text-base leading-8 text-slate-700">
               {paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
+                <p key={index}>{renderTextWithLinks(paragraph)}</p>
               ))}
             </div>
 
